@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BagOfCrafting = void 0;
-const { method } = require("lodash");
 const _ = require("lodash");
 const Rng_1 = require("./Rng");
+let recipeNameSet = new Set();
 class BagOfCrafting {
     constructor(pools, itemQualities) {
         this.pools = pools;
@@ -114,6 +114,35 @@ class BagOfCrafting {
             rng.shift = BagOfCrafting.ComponentShifts[compId];
             rng.next();
         }return compTotalWeight;
+    }
+    getComponentList(components){
+        if (components == null || components.length != 8)
+            throw new Error("Invalid components");
+            for (let k = 0; k <= 7; k++) {
+                BagOfCrafting.ComponentData[components[k]][1] = 0;
+            }
+            if (recipeNameSet.size > 0) {
+                recipeNameSet.clear();
+            }
+            for (let k = 0; k <= 7; k++) {
+                BagOfCrafting.ComponentData[components[k]][1] += 1;
+            }
+            let compList = "";
+            let compNum = 0;
+            for (let k = 0; k <= 7; k++) {
+                compNum++;
+                if (BagOfCrafting.ComponentData[components[k]][1] > 0) {
+                    if (!recipeNameSet.has(BagOfCrafting.ComponentData[components[k]][0])) {
+                        recipeNameSet.add(BagOfCrafting.ComponentData[components[k]][0])
+                        let pname = BagOfCrafting.ComponentData[components[k]][0];
+                        if (compNum % 8 != 0 && BagOfCrafting.ComponentData[components[k]][1] != 8) {
+                            pname += ",";
+                        }
+                        compList += ` ${BagOfCrafting.ComponentData[components[k]][1]} ${pname}`;
+                    }
+                }
+            }
+            return compList;
     }
 }
 exports.BagOfCrafting = BagOfCrafting;
@@ -257,3 +286,31 @@ BagOfCrafting.JsIncorrectRecipes = new Map([
     [([6, 7, 8, 10, 10, 10, 19, 24]).toString(), 663],
 ]);
 //# sourceMappingURL=BagOfCrafting.js.map
+
+BagOfCrafting.ComponentData = new Array(
+    ["Red Hearts",  0],
+    ["Soul Hearts", 0],
+    ["Black Hearts",0],
+    ["Eternal Hearts", 0],
+    ["Golden Hearts", 0],
+    ["Bone Hearts", 0],
+    ["Rotten Hearts", 0],
+    ["Pennies", 0],
+    ["Nickels", 0],
+    ["Dimes", 0],
+    ["Lucky Pennies", 0],
+    ["Keys", 0],
+    ["Golden Keys", 0],
+    ["Charged Keys", 0],
+    ["Bombs", 0],
+    ["Golden Bombs", 0],
+    ["Giga Bombs", 0],
+    ["Micro Battery", 0],
+    ["Lil Battery", 0],
+    ["Mega Battery", 0],
+    ["Cards", 0],
+    ["Pills", 0],
+    ["Runes/Souls", 0],
+    ["Dice Shards", 0],
+    ["Cracked Keys", 0]
+    );
