@@ -7,5 +7,6 @@ Note: The itempools.xml was taken from Item Pools Rework mod to use for testing.
 1) Open this project on VSCode.
 2) Replace the itempools.xml and/or item-metadata.xml in the `assets` folder if generating recipes for a mod.
 3) Go to index.js in the `src` folder, and press `CTRL` + `SHIFT` + `grave` to open up a terminal.
-4) Type node src/index.js.
-5) Wait ~15 seconds and done. File made.
+4) Type `npm install` to install all dependencies for the project.
+5) Type node src/index.js.
+6) Wait ~15 seconds and done. File made.
