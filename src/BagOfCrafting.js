@@ -119,26 +119,26 @@ class BagOfCrafting {
         if (components == null || components.length != 8)
             throw new Error("Invalid components");
             for (let k = 0; k <= 7; k++) {
-                BagOfCrafting.ComponentData[components[k]][1] = 0;
+                BagOfCrafting.ComponentData[components[k] - 1][1] = 0;
             }
             if (recipeNameSet.size > 0) {
                 recipeNameSet.clear();
             }
             for (let k = 0; k <= 7; k++) {
-                BagOfCrafting.ComponentData[components[k]][1] += 1;
+                BagOfCrafting.ComponentData[components[k] - 1][1] += 1;
             }
             let compList = "";
             let compNum = 0;
             for (let k = 0; k <= 7; k++) {
-                compNum++;
-                if (BagOfCrafting.ComponentData[components[k]][1] > 0) {
-                    if (!recipeNameSet.has(BagOfCrafting.ComponentData[components[k]][0])) {
-                        recipeNameSet.add(BagOfCrafting.ComponentData[components[k]][0])
-                        let pname = BagOfCrafting.ComponentData[components[k]][0];
-                        if (compNum % 8 != 0 && BagOfCrafting.ComponentData[components[k]][1] != 8) {
+                if (BagOfCrafting.ComponentData[components[k] - 1][1] > 0) {
+                    if (!recipeNameSet.has(BagOfCrafting.ComponentData[components[k] - 1][0])) {
+                        recipeNameSet.add(BagOfCrafting.ComponentData[components[k] - 1][0])
+                        compNum += BagOfCrafting.ComponentData[components[k] - 1][1];
+                        let pname = BagOfCrafting.ComponentData[components[k] - 1][0];
+                        if (compNum != 8) {
                             pname += ",";
                         }
-                        compList += ` ${BagOfCrafting.ComponentData[components[k]][1]} ${pname}`;
+                        compList += ` ${BagOfCrafting.ComponentData[components[k] - 1][1]} ${pname}`;
                     }
                 }
             }
