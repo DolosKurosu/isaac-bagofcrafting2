@@ -60,7 +60,7 @@ for (let a = 1; a <= 18; a++) {
                                                                         tableOfRecipes.add(toString(components));
                                                                         list += `Recipe ID ${count} = ${itemIdForRecipe} with weight of ${weight} and components ${components}.\n`;
                                                                         if (count == 100000) {
-                                                                            fs.writeFileSync('dist/bag_of_crafting_recipes.txt', list);
+                                                                            fs.writeFileSync('src/bag_of_crafting_recipes.txt', list);
                                                                             console.log("file written");
                                                                             return;
                                                                         }
