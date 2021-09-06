@@ -12,20 +12,10 @@
   "resolved" "https://registry.npmjs.org/@types/node/-/node-14.14.37.tgz"
   "version" "14.14.37"
 
-"combinations@^1.0.0":
-  "integrity" "sha512-aVgTfI/dewHblSn4gF+NZHvS7wtwg9YAPF2EknHMdH+xLsXLLIMpmHkSj64Zxs/R2m9VAAgn3bENjssrn7V4vQ=="
-  "resolved" "https://registry.npmjs.org/combinations/-/combinations-1.0.0.tgz"
-  "version" "1.0.0"
-
 "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
-
-"percom@^1.1.2":
-  "integrity" "sha512-rI0lEtzHreXYozMotzywMC8usVJWLzSPXiINGMuICKvkuJua7Pi0WYFAv1NctS2emQXR+j6qviz9DuS0Ae9vgg=="
-  "resolved" "https://registry.npmjs.org/percom/-/percom-1.1.2.tgz"
-  "version" "1.1.2"
 
 "sax@^1.2.4":
   "integrity" "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="
