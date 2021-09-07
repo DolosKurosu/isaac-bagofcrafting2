@@ -58,6 +58,7 @@ let list = "";
 let count = 0;
 for (let i = 1; i <= 729; i++) {
     if (tableOfStoredItems[i]) {
+        //if you want all convenient recipes for each item, replace Math.min(3, tableOfStoredItems[i].length - 1) w/ tableOfStoredItems[i].length - 1
         for (let j = 0; j <= Math.min(3, tableOfStoredItems[i].length - 1); j++) {
             list += `Recipe ${j + 1} of Item ID ${i} has a weight of ${tableOfStoredItems[i][j].value} and is made with${tableOfStoredItems[i][j].string}.\n`;
             count++;
