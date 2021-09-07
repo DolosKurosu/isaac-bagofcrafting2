@@ -28,7 +28,7 @@ for (let a = 1; a <= 7; a++) {
                     for (let f = 1; f <= 21; f++) {
                         for (let g = 1; g <= 21; g++) {
                             for (let h = 1; h <= 21; h++) {
-                                let components = [componentWeightedIndex[a], componentWeightedIndex[b], componentWeightedIndex[c], componentWeightedIndex[d], componentWeightedIndex[e], componentWeightedIndex[f], componentWeightedIndex[g], componentWeightedIndex[h]].sort(function(x,y){return x-y});
+                                let components = [componentConvenienceIndex[a], componentConvenienceIndex[b], componentConvenienceIndex[c], componentConvenienceIndex[d], componentConvenienceIndex[e], componentConvenienceIndex[f], componentConvenienceIndex[g], componentConvenienceIndex[h]].sort(function(x,y){return x-y});
                                 if (!tableOfRecipes.has(toString(components)) && !wrongRecipes.has(toString(components))) {
                                     let weight = bc.getTotalWeight(components);
                                     if (weight < 41) {
