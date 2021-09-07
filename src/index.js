@@ -9,47 +9,34 @@ let meta = XmlParser_1.XmlParser.loadMeta(fs.readFileSync('assets/items_metadata
 let bc = new BagOfCrafting_1.BagOfCrafting(pools, meta);
 let wrongRecipes = BagOfCrafting_1.BagOfCrafting.JsIncorrectRecipes;
 let tableOfRecipes = new Set();
+let tableOfStoredItems = new Array();
+const componentConvenienceIndex = {1: 1, 2: 8, 3: 12, 4: 15, 5: 2, 6: 21, 7: 9, 8: 22, 9: 18, 10: 23, 11: 3, 12: 4, 13: 6, 14: 11, 15: 7, 16: 19, 17: 5, 18: 10, 19: 13, 20: 14, 21: 16}
+let ItemCounter = new Array();
+for (let d = 1; d <= 729; d++) {
+    ItemCounter[d] = 0;
+}
 
-let list = "";
-for (let a = 1; a <= 18; a++) {
-    let count = 0;
-    if (a != 17) {
-        for (let b = 1; b <= 22; b++) {
-            if (b != 17) {
-                for (let c = 1; c <= 22; c++) {
-                    if (c != 17) {
-                        for (let d = 1; d <= 22; d++) {
-                            if (d != 17) {
-                                for (let e = 1; e <= 22; e++) {
-                                    if (e != 17) {
-                                        for (let f = 1; f <= 22; f++) {
-                                            if (f != 17) {
-                                                for (let g = 1; g <= 22; g++) {
-                                                    if (g != 17) {
-                                                        for (let h = 1; h <= 22; h++) {
-                                                            if (h != 17) {
-                                                                let components = [a, b, c, d, e, f, g, h].sort(function(x,y){return x-y});
-                                                                if (!tableOfRecipes.has(toString(components)) && !wrongRecipes.has(toString(components))) {
-                                                                    let weight = bc.getTotalWeight(components);
-                                                                    if (weight < 36) {
-                                                                        let itemIdForRecipe = bc.calculate(components);
-                                                                        count++;
-                                                                        tableOfRecipes.add(toString(components));
-                                                                        let recipeList = bc.getComponentList(components);
-                                                                        list += `Recipe ID ${count} = ${itemIdForRecipe} with weight of ${weight} using components${recipeList}.\n`;
-                                                                        if (count == 100000) {
-                                                                            fs.writeFileSync('src/bag_of_crafting_recipes.txt', list);
-                                                                            console.log("file written");
-                                                                            return;
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+for (let k = 1; k <= 729; k++) {
+    tableOfStoredItems[k] = new Array();
+}
+
+for (let a = 1; a <= 7; a++) {
+    for (let b = 1; b <= 7; b++) {
+        for (let c = 1; c <= 8; c++) {
+            for (let d = 1; d <= 8; d++) {
+                for (let e = 1; e <= 8; e++) {
+                    for (let f = 1; f <= 21; f++) {
+                        for (let g = 1; g <= 21; g++) {
+                            for (let h = 1; h <= 21; h++) {
+                                let components = [componentWeightedIndex[a], componentWeightedIndex[b], componentWeightedIndex[c], componentWeightedIndex[d], componentWeightedIndex[e], componentWeightedIndex[f], componentWeightedIndex[g], componentWeightedIndex[h]].sort(function(x,y){return x-y});
+                                if (!tableOfRecipes.has(toString(components)) && !wrongRecipes.has(toString(components))) {
+                                    let weight = bc.getTotalWeight(components);
+                                    if (weight < 41) {
+                                        let itemIdForRecipe = bc.calculate(components);
+                                        let recipeList = bc.getComponentList(components)
+                                        tableOfStoredItems[itemIdForRecipe][ItemCounter[itemIdForRecipe]] = {value: weight, string: recipeList};
+                                        tableOfRecipes.add(toString(components));
+                                        ItemCounter[itemIdForRecipe] += 1;
                                     }
                                 }
                             }
@@ -60,3 +47,23 @@ for (let a = 1; a <= 18; a++) {
         }
     }
 }
+
+for (let i = 1; i <= 729; i++) {
+    if (tableOfStoredItems[i]) {
+        tableOfStoredItems[i].sort(function(x, y){return x.value - y.value});
+    }
+}
+
+let list = "";
+let count = 0;
+for (let i = 1; i <= 729; i++) {
+    if (tableOfStoredItems[i]) {
+        for (let j = 0; j <= Math.min(3, tableOfStoredItems[i].length - 1); j++) {
+            list += `Recipe ${j + 1} of Item ID ${i} has a weight of ${tableOfStoredItems[i][j].value} and is made with${tableOfStoredItems[i][j].string}.\n`;
+            count++;
+        }
+    }
+}
+fs.writeFileSync(`src/bag_of_crafting_recipes.txt`, list);
+console.log(`file written with ${count} recipes. hoorah!!!`);
+
